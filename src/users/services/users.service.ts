@@ -7,7 +7,7 @@ import { ProductsService } from 'src/products/services/products.service';
 
 @Injectable()
 export class UsersService {
-  constructor(private _productService: ProductsService) { }
+  constructor(private _productService: ProductsService) {}
   private counterId = 1;
   private users: User[] = [
     {
