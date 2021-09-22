@@ -23,10 +23,16 @@ import config from './config';
         API_KEY: Joi.string().required() || Joi.number().required(),
         DATABASE_NAME: Joi.string().required(),
         DATABASE_PORT: Joi.number().required(),
+        PORT: Joi.number().required(),
+        POSTGRES_DB: Joi.string().required(),
+        POSTGRES_USER: Joi.string().required(),
+        POSTGRES_PASSWORD: Joi.string().required() || Joi.number().required(),
+        POSTGRES_PORT: Joi.number().required(),
+        POSTGRES_HOST: Joi.string().required(),
       }),
     }),
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }

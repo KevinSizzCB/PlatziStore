@@ -1,9 +1,9 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly appService: AppService) { }
 
   @Get()
   getHello(): string {
@@ -13,5 +13,10 @@ export class AppController {
   @Get('nuevo')
   newEndponit() {
     return 'in new';
+  }
+
+  @Get('tasks')
+  tasks() {
+    return this.appService.getTasks();
   }
 }
