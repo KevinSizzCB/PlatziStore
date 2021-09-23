@@ -12,6 +12,7 @@ import { Category } from './entities/category.entity';
 import { BrandsController } from './controllers/brands.controller';
 import { BrandsService } from './services/brands.service';
 import { Brand } from './entities/brand.entity';
+import { JwtStrategy } from 'src/auth/strategies/jwt.strategy';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Product, Category, Brand])],

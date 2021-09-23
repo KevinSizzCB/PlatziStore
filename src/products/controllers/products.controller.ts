@@ -9,11 +9,15 @@ import {
   Delete,
   HttpStatus,
   HttpCode,
-  Res,
-  // ParseIntPipe,
+  UseGuards,
+  ParseIntPipe,
 } from '@nestjs/common';
-
-import { ParseIntPipe } from '../../common/parse-int.pipe';
+import { Public } from 'src/auth/decorators/public.decorator';
+import { Roles } from 'src/auth/decorators/roles.decorator';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { RolesGuard } from 'src/auth/guards/roles.guard';
+import { Role } from 'src/auth/models/roles.model';
+// import { ParseIntPipe } from '../../common/parse-int.pipe';
 import {
   CreateProductDto,
   FilterProductsDto,
@@ -21,10 +25,12 @@ import {
 } from '../dtos/product.dto';
 import { ProductsService } from './../services/products.service';
 
+@UseGuards(JwtAuthGuard, RolesGuard)
 @Controller('products')
 export class ProductsController {
   constructor(private productsService: ProductsService) { }
 
+  @Public()
   @Get()
   getProducts(@Query() params: FilterProductsDto) {
     return this.productsService.findAll(params);
@@ -35,6 +41,7 @@ export class ProductsController {
     return `yo soy un filter`;
   }
 
+  @Public()
   @Get(':productId')
   @HttpCode(HttpStatus.ACCEPTED)
   getOne(@Param('productId', ParseIntPipe) productId: number) {
@@ -42,6 +49,7 @@ export class ProductsController {
   }
 
   @Post()
+  @Roles(Role.ADMIN)
   create(@Body() payload: CreateProductDto) {
     return this.productsService.create(payload);
   }
