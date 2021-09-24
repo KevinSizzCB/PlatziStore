@@ -10,17 +10,27 @@ import config from '../config';
     TypeOrmModule.forRootAsync({
       inject: [config.KEY],
       useFactory: (configService: ConfigType<typeof config>) => {
-        const { dbName, host, password, port, user } = configService.postgres;
+        // const { dbName, host, password, port, user, } = configService.postgres;
+        const { postgresURL } = configService;
         return {
-          port,
           type: 'postgres',
-          username: user,
-          host, //'172.19.0.3',
-          database: dbName,
-          password,
           synchronize: false,
           autoLoadEntities: true,
+          url: postgresURL,
+          ssl: {
+            rejectUnauthorized: false,
+          },
         };
+        // return {
+        //   port,
+        //   type: 'postgres',
+        //   username: user,
+        //   host, //'172.19.0.3',
+        //   database: dbName,
+        //   password,
+        //   synchronize: false,
+        //   autoLoadEntities: true,
+        // };
       },
     }),
   ],
@@ -36,7 +46,6 @@ import config from '../config';
         //   password,
         //   port,
         // })
-
         // client.connect().catch(e => console.log('Error connecting db PG', e));
         // return client;
       },

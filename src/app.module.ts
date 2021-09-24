@@ -31,6 +31,7 @@ import config from './config';
         POSTGRES_PORT: Joi.number().required(),
         POSTGRES_HOST: Joi.string().required(),
         JWT_SECRET: Joi.string().required(),
+        DATABASE_URL: Joi.string().required(),
       }),
     }),
     AuthModule,
