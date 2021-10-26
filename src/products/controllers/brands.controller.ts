@@ -38,6 +38,7 @@ export class BrandsController {
     @Param('id', ParseIntPipe) id: number,
     @Body() payload: UpdateBrandDto,
   ) {
+    console.log('Dto', payload);
     return this.brandsService.update(id, payload);
   }
 
